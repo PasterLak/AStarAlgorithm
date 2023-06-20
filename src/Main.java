@@ -1,4 +1,5 @@
-public class Main {
+public class Main
+{
 
     public static void main(String[] args)
     {
@@ -9,7 +10,7 @@ public class Main {
 
         map.print();
         System.out.println("Map with path: ");
-        map.printWithPath(AStarAlgorithm.findPath(map));
+        map.printMapWithPath(AStarAlgorithm.findPath(map));
 
     }
 

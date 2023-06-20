@@ -12,11 +12,6 @@ public class Map {
         return map;
     }
 
-    public void printWithPath(List<Node> path)
-    {
-        printMapWithPath(map, path);
-    }
-
     private void printLine()
     {
         System.out.println("-------------------------------------");
@@ -37,44 +32,48 @@ public class Map {
         }
     }
 
-
-    private void printMapWithPath(char[][] map, List<Node> path)
+    public void printMapWithPath(List<Node> path)
     {
         printLine();
-        int numRows = map.length;
-        int numCols = map[0].length;
 
-        for (int i = 0; i < numRows; i++)
+        char[][] mapCopy = copyMapData();
+
+        for (Node node:path)
         {
-            for (int j = 0; j < numCols; j++)
+            if(mapCopy[node.getX()][node.getY()] != 'A' && mapCopy[node.getX()][node.getY()] != 'B')
             {
-                Node currentNode = new Node(i, j);
-                if (path.contains(currentNode)) {
-                    if (map[i][j] == 'A' || map[i][j] == 'B') {
-                        System.out.print(map[i][j] + "  ");
-                    } else {
-                        System.out.print("X  ");
-                    }
-                } else {
-                    System.out.print(map[i][j] + "  ");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    private Node findNode(char symbol) {
-        int numRows = map.length;
-        int numCols = map[0].length;
-
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                if (map[i][j] == symbol) {
-                    return new Node(i, j);
-                }
+                mapCopy[node.getX()][node.getY()] = Direction.directionConvert(node.getDirectionToNext());
             }
         }
 
-        return null;
+        for (int x = 0; x < map.length; x++)
+        {
+            for (int y = 0; y < map[0].length; y++)
+            {
+
+                System.out.print(mapCopy[x][y] + "  ");
+            }
+            System.out.println("");
+        }
+
     }
+
+    private char[][] copyMapData()
+    {
+        int rows = map.length;
+        int cols = map[0].length;
+
+        char[][] mapCopy = new char[rows][cols];
+
+        for (int x = 0; x < rows; x++)
+        {
+            for (int y = 0; y < cols; y++)
+            {
+                mapCopy[x][y] = map[x][y];
+            }
+        }
+
+        return  mapCopy;
+    }
+
 }

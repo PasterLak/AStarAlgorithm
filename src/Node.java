@@ -4,10 +4,11 @@ class Node implements Comparable<Node>
 {
     private int x;
     private int y;
-    private double gCost;
-    private double hCost;
-    private double fCost;
+    private float gCost;
+    private float hCost;
+    private float fCost;
     private Node parent;
+    private Direction directionToNext;
 
     public Node(int x, int y) {
         this.x = x;
@@ -26,27 +27,27 @@ class Node implements Comparable<Node>
         return y;
     }
 
-    public double getGCost() {
+    public float getGCost() {
         return gCost;
     }
 
-    public void setGCost(double gCost) {
+    public void setGCost(float gCost) {
         this.gCost = gCost;
     }
 
-    public double getHCost() {
+    public float getHCost() {
         return hCost;
     }
 
-    public void setHCost(double hCost) {
+    public void setHCost(float hCost) {
         this.hCost = hCost;
     }
 
-    public double getFCost() {
+    public float getFCost() {
         return fCost;
     }
 
-    public void setFCost(double fCost) {
+    public void setFCost(float fCost) {
         this.fCost = fCost;
     }
 
@@ -56,6 +57,16 @@ class Node implements Comparable<Node>
 
     public void setParent(Node parent) {
         this.parent = parent;
+    }
+
+    public Direction getDirectionToNext()
+    {
+        return directionToNext;
+    }
+
+    public void setDirectionToNext(Direction directionToNext)
+    {
+        this.directionToNext = directionToNext;
     }
 
     @Override
@@ -77,4 +88,5 @@ class Node implements Comparable<Node>
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
 }
