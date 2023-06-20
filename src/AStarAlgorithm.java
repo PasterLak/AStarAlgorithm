@@ -29,7 +29,6 @@ public class AStarAlgorithm
             }
         }
 
-
         if (startNode == null || targetNode == null) {
             throw new IllegalArgumentException("Start or target node not found in the map");
         }
@@ -49,38 +48,44 @@ public class AStarAlgorithm
 
             closedSet.add(currentNode);
 
-            for (Direction direction : Direction.values())
-            {
-                int neighborX = currentNode.getX() + direction.getX();
-                int neighborY = currentNode.getY() + direction.getY();
-
-                if (!isValidCoordinate(neighborX, neighborY, numRows, numCols)) {
-                    continue;
-                }
-
-                if (grid[neighborX][neighborY] == '#') {
-                    continue;
-                }
-
-                Node neighborNode = new Node(neighborX, neighborY);
-                float tentativeGCost = currentNode.getGCost() + calculateDistance(currentNode, neighborNode);
-
-                if (closedSet.contains(neighborNode) && tentativeGCost >= neighborNode.getGCost()) {
-                    continue;
-                }
-                if (!openSet.contains(neighborNode) || tentativeGCost < neighborNode.getGCost()) {
-
-                    setNeighborNodeParameters(neighborNode, currentNode, targetNode, tentativeGCost);
-
-                    if (!openSet.contains(neighborNode))
-                    {
-                        openSet.add(neighborNode);
-                    }
-                }
-            }
+            сheckNeighboringNodes(currentNode, targetNode, grid, openSet, closedSet);
         }
 
         return Collections.emptyList();
+    }
+
+    private static void сheckNeighboringNodes(Node current,Node target, char[][] grid,PriorityQueue<Node> openSet,List<Node> closedSet )
+    {
+        for (Direction direction : Direction.values())
+        {
+            int neighborX = current.getX() + direction.getX();
+            int neighborY = current.getY() + direction.getY();
+
+            if (!isValidCoordinate(neighborX, neighborY, grid.length, grid[0].length)) {
+                continue;
+            }
+
+            if (grid[neighborX][neighborY] == '#') {
+                continue;
+            }
+
+            Node neighborNode = new Node(neighborX, neighborY);
+
+            float tentativeGCost = current.getGCost() + calculateDistance(current, neighborNode);
+
+            if (closedSet.contains(neighborNode) && tentativeGCost >= neighborNode.getGCost()) {
+                continue;
+            }
+            if (!openSet.contains(neighborNode) || tentativeGCost < neighborNode.getGCost()) {
+
+                setNeighborNodeParameters(neighborNode, current, target, tentativeGCost);
+
+                if (!openSet.contains(neighborNode))
+                {
+                    openSet.add(neighborNode);
+                }
+            }
+        }
     }
 
     private static void setNeighborNodeParameters(Node neighbor, Node current, Node target, float tentativeGCost)

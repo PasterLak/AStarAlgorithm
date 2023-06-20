@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 class Node implements Comparable<Node>
 {
     private int x;
@@ -7,10 +5,12 @@ class Node implements Comparable<Node>
     private float gCost;
     private float hCost;
     private float fCost;
+
     private Node parent;
     private Direction directionToNext;
 
-    public Node(int x, int y) {
+    public Node(int x, int y)
+    {
         this.x = x;
         this.y = y;
         this.gCost = 0;
@@ -82,11 +82,6 @@ class Node implements Comparable<Node>
         if (!(obj instanceof Node otherNode)) return false;
 
         return this.x == otherNode.x && this.y == otherNode.y;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
     }
 
 }

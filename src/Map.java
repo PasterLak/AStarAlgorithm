@@ -12,24 +12,9 @@ public class Map {
         return map;
     }
 
-    private void printLine()
-    {
-        System.out.println("-------------------------------------");
-    }
-
     public void print()
     {
-        printLine();
-        int numRows = map.length;
-        int numCols = map[0].length;
-
-        for (int i = 0; i < numRows; i++)
-        {
-            for (int j = 0; j < numCols; j++){
-                System.out.print(map[i][j] + "  ");
-            }
-            System.out.println();
-        }
+        print(map);
     }
 
     public void printMapWithPath(List<Node> path)
@@ -38,24 +23,29 @@ public class Map {
 
         char[][] mapCopy = copyMapData();
 
-        for (Node node:path)
+        for (Node n:path)
         {
-            if(mapCopy[node.getX()][node.getY()] != 'A' && mapCopy[node.getX()][node.getY()] != 'B')
+            if(mapCopy[n.getX()][n.getY()] != 'A' && mapCopy[n.getX()][n.getY()] != 'B')
             {
-                mapCopy[node.getX()][node.getY()] = Direction.directionConvert(node.getDirectionToNext());
+                mapCopy[n.getX()][n.getY()] = Direction.directionConvert(n.getDirectionToNext());
             }
         }
 
-        for (int x = 0; x < map.length; x++)
+        print(mapCopy);
+
+    }
+
+    private void print(char[][] mapData)
+    {
+        printLine();
+
+        for (int i = 0; i < mapData.length; i++)
         {
-            for (int y = 0; y < map[0].length; y++)
-            {
-
-                System.out.print(mapCopy[x][y] + "  ");
+            for (int j = 0; j < mapData[0].length; j++){
+                System.out.print(mapData[i][j] + "  ");
             }
-            System.out.println("");
+            System.out.println();
         }
-
     }
 
     private char[][] copyMapData()
@@ -74,6 +64,11 @@ public class Map {
         }
 
         return  mapCopy;
+    }
+
+    private void printLine()
+    {
+        System.out.println("-------------------------------------");
     }
 
 }
