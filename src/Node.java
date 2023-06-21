@@ -71,7 +71,7 @@ class Node implements Comparable<Node>
 
     @Override
     public int compareTo(Node other) {
-        return Double.compare(this.fCost, other.fCost);
+        return Float.compare(this.fCost, other.fCost);
     }
 
     @Override
