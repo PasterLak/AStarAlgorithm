@@ -2,21 +2,18 @@ class Node implements Comparable<Node>
 {
     private int x;
     private int y;
-    private float gCost;
-    private float hCost;
-    private float fCost;
 
-    private Node parent;
+    private float gCost = 0;
+    private float hCost = 0;
+    private float fCost = 0;
+
+    private Node parent = null;
     private Direction directionToNext;
 
     public Node(int x, int y)
     {
         this.x = x;
         this.y = y;
-        this.gCost = 0;
-        this.hCost = 0;
-        this.fCost = 0;
-        this.parent = null;
     }
 
     public int getX() {
@@ -78,7 +75,6 @@ class Node implements Comparable<Node>
     public boolean equals(Object obj)
     {
         if (this == obj) return true;
-
         if (!(obj instanceof Node otherNode)) return false;
 
         return this.x == otherNode.x && this.y == otherNode.y;
